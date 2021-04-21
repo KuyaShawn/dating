@@ -1,0 +1,24 @@
+.navbar_title{
+    color: white;
+}
+.indented{
+    text-indent: 0.5em;
+    margin-left: 1.5em;
+    margin-right: 1.5em;
+}
+.dating_img{
+    margin-top: 4em;
+    width: 100%;
+    height: 400px;
+}
+.column_row{
+    margin: 0.625em 1.25em 1.875em;
+
+}
+h2, h3{
+    margin: 10px 0.5em;
+}
+button{
+    margin-left: 9.375em; !important;
+    margin-right: 9.375em; !important;
+}
