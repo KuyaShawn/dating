@@ -1,9 +1,11 @@
-<!-- 328/dating/views/personal_info.html  -->
+<!-- 328/dating/views/profile.html  -->
 
+<!-- Profile Page -->
 <include href="views/header.html"></include>
 <body>
 <include href="views/navbar.html"></include>
 <div class="container rounded border mt-4">
+    <!-- form start -->
     <form action="#" method="post" class="form-horizontal">
         <div class="row column_row mb-0">
             <h1 class="mt-4">Profile</h1>
@@ -12,23 +14,23 @@
                 <div class="col">
                         <div class="form-group">
                             <label class="h6" for="email">Email</label>
-                            <input type="text" class="form-control" id="email">
+                            <input type="text" class="form-control" id="email" name="email">
                         </div>
                         <div class="form-group">
                             <label class="h6" for="state">State</label>
-                            <select class="form-control" id="state">
-                                <option>Choose a State</option>
-                                <option>Washington</option>
-                                <option>California</option>
-                                <option>New York</option>
-                                <option>Florida</option>
-                                <option>Texas</option>
+                            <select class="form-control" id="state" name="state">
+                                <option value="none">Choose a State</option>
+                                <option value="WA">Washington</option>
+                                <option value="CA">California</option>
+                                <option value="NY">New York</option>
+                                <option value="FL">Florida</option>
+                                <option value="TX">Texas</option>
                             </select>
                         </div>
                         <h6>Seeking</h6>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" name="seeking" id="gMale" value="Male">
-                            <label class="form-check-label" for="gMale">Male</label>
+                            <label class="form-check-label" for="gMale" >Male</label>
                         </div>
                         <div class="form-check form-check-inline">
                             <input type="radio" class="form-check-input" name="seeking" id="gFemale" value="Female">
@@ -38,7 +40,7 @@
                 <div class="col">
                     <div class="form-group">
                         <label class="h6" for="bio">Biography</label>
-                        <textarea class="form-control" id="bio" rows="5"></textarea>
+                        <textarea class="form-control" id="bio" rows="5" name="bio"></textarea>
                     </div>
                 </div>
         </div>
@@ -49,3 +51,4 @@
 </div>
 
 </body>
+</html>
