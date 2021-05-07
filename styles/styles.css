@@ -1,24 +1,37 @@
-.navbar_title{
+.navbar_title {
     color: white;
 }
-.indented{
-    text-indent: 0.5em;
-    margin-left: 1.5em;
-    margin-right: 1.5em;
-}
-.dating_img{
+
+.dating_img {
     margin-top: 4em;
     width: 100%;
     height: 400px;
 }
-.column_row{
-    margin: 0.625em 1.25em 1.875em;
 
+.profile_img {
+    width: 75%;
 }
-h2, h3{
+
+.column_row {
+    margin: 0.625em 1.25em 1.875em;
+}
+
+h2, h3 {
     margin: 10px 0.5em;
 }
-button{
-    margin-left: 9.375em; !important;
-    margin-right: 9.375em; !important;
+
+#bg_nav {
+    background-color: #e0e0e0;
+}
+
+#text_nav {
+    color: #868686;
+}
+
+#text_nav:hover {
+    color: #af2424;
+}
+#btn_size{
+    width: 8.125em;
+    height: 2.5em;
 }
