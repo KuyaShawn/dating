@@ -66,8 +66,7 @@ $f3->route('GET|POST /interest', function () {
     */
     if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         //var_dump($_POST);
-        $_SESSION['in_door'] = implode(" ", $_POST['in_door']);
-        $_SESSION['out_door'] = implode(' ', $_POST['out_door']);
+        $_SESSION['interest'] = implode(", ", $_POST['interest']);
 
         header('location: summary');
     }
