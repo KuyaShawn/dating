@@ -40,3 +40,8 @@ h2, h3 {
 
     background-color: #c4c4c4;
 }
+
+.err {
+    color: darkred;
+    padding-left: 1em;
+}

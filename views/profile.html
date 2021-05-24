@@ -11,38 +11,48 @@
             <h1 class="mt-4">Profile</h1>
         </div>
         <div class="row column_row border-top pt-4">
-                <div class="col">
-                        <div class="form-group">
-                            <label class="h6" for="email">Email</label>
-                            <input type="text" class="form-control" id="email" name="email">
-                        </div>
-                        <div class="form-group">
-                            <label class="h6" for="state">State</label>
-                            <select class="form-control" id="state" name="state">
-                                <option value="none">Choose a State</option>
-                                <option value="WA">Washington</option>
-                                <option value="CA">California</option>
-                                <option value="NY">New York</option>
-                                <option value="FL">Florida</option>
-                                <option value="TX">Texas</option>
-                            </select>
-                        </div>
-                        <h6>Seeking</h6>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="seeking" id="gMale" value="Male">
-                            <label class="form-check-label" for="gMale" >Male</label>
-                        </div>
-                        <div class="form-check form-check-inline">
-                            <input type="radio" class="form-check-input" name="seeking" id="gFemale" value="Female">
-                            <label class="form-check-label" for="gFemale">Female</label>
-                        </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="h6" for="email">Email</label>
+                    <input type="text" id="email" name="email" class="form-control" value="{{ @userEmail }}">
+                    <check if="{{ isset(@errors['email']) }}">
+                        <span class="err">{{ @errors['email'] }}</span>
+                    </check>
                 </div>
-                <div class="col">
-                    <div class="form-group">
-                        <label class="h6" for="bio">Biography</label>
-                        <textarea class="form-control" id="bio" rows="5" name="bio"></textarea>
-                    </div>
+                <div class="form-group">
+                    <label class="h6" for="state">State</label>
+                    <select id="state" name="state" class="form-control">
+                        <repeat group="{{ @states }}" value="{{ @state }}">
+                            <option value="{{ @state }}"
+                            <check if="{{ @state == @userState }}">
+                                selected
+                            </check>
+                            >{{ @state }}</option>
+                        </repeat>
+                    </select>
                 </div>
+                <h6>Seeking</h6>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="seeking" value="male"
+                        <check if="{{ @userSeeking == 'male' }}">checked="checked"</check>
+                        >Male
+                    </label>
+                </div>
+                <div class="form-check form-check-inline">
+                    <label class="form-check-label">
+                        <input type="radio" class="form-check-input" name="seeking" value="female"
+                        <check if="{{ @userSeeking == 'female' }}">checked="checked"</check>
+                        >Female
+                    </label>
+                </div>
+            </div>
+            <div class="col">
+                <div class="form-group">
+                    <label class="h6" for="bio">Biography</label>
+                    <textarea class="form-control" id="bio" rows="5" name="bio">{{ @userBio }}</textarea>
+                </div>
+            </div>
         </div>
         <div class="row column_row d-flex justify-content-end">
             <input type="submit" class="form-control btn btn-primary rounded" id="btn_size" value="Next >">
