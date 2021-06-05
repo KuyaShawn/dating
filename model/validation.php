@@ -8,8 +8,10 @@
 
     function validAge($age)
     {
-        if (!empty($age) && is_numeric($age) && $age >= 18 || $age <= 118) {
-            return true;
+        $age = floatval($age);
+        if (is_nan($age) != 1)
+        {
+            return ($age >= 18 && $age <= 118);
         }
         return false;
 
