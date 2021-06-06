@@ -1,12 +1,13 @@
 <?php
-
+class Validation
+{
     // returns true if name is valid
-    function validName($name)
+    static function validName($name): bool
     {
         return preg_match('/^[a-zA-Z]+$/', $name) == 1;
     }
 
-    function validAge($age)
+    static function validAge($age): bool
     {
         $age = floatval($age);
         if (is_nan($age) != 1)
@@ -17,14 +18,14 @@
 
     }
 
-    function validPhone($phone)
+    static function validPhone($phone): bool
     {
         $pattern = '/^\s*(?:\+?(\d{1,3}))?([-. (]*(\d{3})[-. )]*)?((\d{3})[-. ]*(\d{2,4})(?:[-.x ]*(\d+))?)\s*$/';
         return preg_match($pattern, $phone) == 1;
 
     }
 
-    function validEmail($email)
+    static function validEmail($email): bool
     {
         if (filter_var($email, FILTER_VALIDATE_EMAIL) && !empty($email)) {
             return true;
@@ -32,37 +33,30 @@
         return false;
     }
 
-    function validOutdoor($outdoor)
+    static function validOutdoor($outdoor): bool
     {
-        $validOutdoor = getOutdoors();
-        if (!empty($outdoor))
-        {
-            foreach ($outdoor as $userOutdoor)
-            {
-                if (!in_array($userOutdoor, $validOutdoor))
-                {
+        $validOutdoor = DataLayer::getOutdoors();
+        if (!empty($outdoor)) {
+            foreach ($outdoor as $userOutdoor) {
+                if (!in_array($userOutdoor, $validOutdoor)) {
                     return false;
                 }
             }
         }
-
-        // if choices value is valid and value name isn't changed
         return true;
     }
 
-    function validIndoor($indoor)
+    static function validIndoor($indoor): bool
     {
-        $validIndoor = getIndoors();
-        if (!empty($indoor))
-        {
-            foreach ($indoor as $userIndoor)
-            {
-                if (!in_array($userIndoor, $validIndoor))
-                {
+        $validIndoor = DataLayer::getIndoors();
+        if (!empty($indoor)) {
+            foreach ($indoor as $userIndoor) {
+                if (!in_array($userIndoor, $validIndoor)) {
                     return false;
                 }
             }
         }
-        // if choices value is valid and value name isn't changed
         return true;
     }
+}
+

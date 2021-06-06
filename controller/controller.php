@@ -35,36 +35,49 @@ class Controller
             $userAge = "";
             $userPhone = "";
             $userGender = "";
+            $userPremium = false;
 
             $userFirst = $_POST['fName'];
             $userLast = $_POST['lName'];
             $userAge = $_POST['age'];
             $userPhone = $_POST['pNum'];
             $userGender = $_POST['gender'];
-            $_SESSION['gender'] = $userGender;
+            $userPremium = isset($_POST['premium']);
 
-            if (validName($userFirst)) {
-                $_SESSION['fName'] = $_POST['fName'];
+            if ($userPremium) {
+                $_SESSION['user'] = new PremiumMember();
+            } else {
+                $_SESSION['user'] = new Member();
+            }
+
+            if (Validation::validName($userFirst)) {
+                $_SESSION['user']->setFname($userFirst);
             } else {
                 $this->_f3->set('errors["fname"]', "Please input a valid first name");
             }
 
-            if (validName($userLast)) {
-                $_SESSION['lName'] = $_POST['lName'];
+            if (Validation::validName($userLast)) {
+                $_SESSION['user']->setLname($userLast);
             } else {
                 $this->_f3->set('errors["lname"]', "Please input a valid last name");
             }
 
-            if (validAge($userAge)) {
-                $_SESSION['age'] = $_POST['age'];
+            if (Validation::validAge($userAge)) {
+                $_SESSION['user']->setAge($userAge);
             } else {
                 $this->_f3->set('errors["age"]', "Please enter a valid age");
             }
 
-            if (validPhone($userPhone)) {
-                $_SESSION['pNum'] = $_POST['pNum'];
+            if (Validation::validPhone($userPhone)) {
+                $_SESSION['user']->setPhone($userPhone);
             } else {
                 $this->_f3->set('errors["pNum"]', "Please enter a valid phone number");
+            }
+
+            if (!is_null($userGender)) {
+                $_SESSION['user']->setGender($userGender);
+            } else {
+                $this->_f3->set('errors["gender"]', "Please select a valid gender");
             }
 
             $this->_f3->set('userFirst', $userFirst);
@@ -102,15 +115,21 @@ class Controller
             $userBio = $_POST['bio'];
             $userSeeking = $_POST['seeking'];
 
-            if (validEmail($userEmail)) {
-                $_SESSION['email'] = $userEmail;
+            if (Validation::validEmail($userEmail)) {
+                $_SESSION['user']->setEmail($userEmail);
             } else {
                 $this->_f3->set('errors["email"]', "Please enter a valid email address");
             }
 
-            $_SESSION['state'] = $userState;
-            $_SESSION['seeking'] = $userSeeking;
-            $_SESSION['bio'] = $userBio;
+            if (!is_null($userSeeking)) {
+                $_SESSION['user']->setSeeking($userSeeking);
+            } else {
+                $this->_f3->set('errors["seeking"]', "Please choose the gender you're interested in");
+            }
+
+            $_SESSION['user']->setState($userState);
+
+            $_SESSION['user']->setBio($userBio);
 
             //Store the user input in the hive (Part of making the code sticky)
             $this->_f3->set('userEmail', $userEmail);
@@ -122,7 +141,7 @@ class Controller
                 header('location: interest');
             }
         }
-        $this->_f3->set('states', getStates());
+        $this->_f3->set('states', DataLayer::getStates());
         // Display the Profile page
         $view = new Template();
         echo $view->render('views/profile.html');
@@ -130,47 +149,49 @@ class Controller
 
     function interest()
     {
-        //Initialize variables to store user input as an array
-        $userIndoor = array();
-        $userOutdoor = array();
+        if ($_SESSION['user'] instanceof PremiumMember) {
+            //Initialize variables to store user input as an array
+            $userIndoor = array();
+            $userOutdoor = array();
 
-        /* If the form has been submitted, add the data to session
-        * and send the user to the next order form
-        */
-        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-            //var_dump($_POST);
+            /* If the form has been submitted, add the data to session
+            * and send the user to the next order form
+            */
+            if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+                $userIndoor = $_POST['indoorInterests'] == null ? array() : $_POST['indoorInterests'];
+                $userOutdoor = $_POST['outdoorInterests'] == null ? array() : $_POST['outdoorInterests'];
 
-            $userIndoor = $_POST['indoorInterests'];
-            $userOutdoor = $_POST['outdoorInterests'];
+                if (Validation::validIndoor($userIndoor)) {
+                    $_SESSION['user']->setInDoorInterests($userIndoor);
+                } else {
+                    $this->_f3->set('errors["indoor"]', "Please enter a valid interest");
+                }
 
-            if (validIndoor($userIndoor)) {
-                $_SESSION['indoor'] = implode(", ", $userIndoor);
-            } else {
-                $this->_f3->set('errors["indoor"]', 'Please enter a valid interest');
+                if (Validation::validOutdoor($userOutdoor)) {
+                    $_SESSION['user']->setOutDoorInterests($userOutdoor);
+                } else {
+                    $this->_f3->set('errors["outdoor"]', "Please enter a valid interest");
+                }
+                if (empty($this->_f3->get('errors'))) {
+                    header('location: summary');
+                }
             }
 
-            if (validOutdoor($userOutdoor)) {
-                $_SESSION['outdoor'] = implode(", ", $userOutdoor);
-            } else {
-                $this->_f3->set('errors["outdoor"]', 'Please enter a valid interest');
-            }
-            if (empty($this->_f3->get('errors'))) {
-                header('location: summary');
-            }
+            //Get both interest and then send them to the view
+            $this->_f3->set('indoor', DataLayer::getIndoors());
+            $this->_f3->set('outdoor', DataLayer::getOutdoors());
 
+            //Store the user input in the hive (Part of making the code sticky)
+            $this->_f3->set('userIndoor', $userIndoor);
+            $this->_f3->set('userOutdoor', $userOutdoor);
+
+            // Display the Interest page
+            $view = new Template();
+            echo $view->render('views/Interest.html');
+        } else {
+            header('location: summary');
         }
 
-        //Get both interest and then send them to the view
-        $this->_f3->set('indoor', getIndoors());
-        $this->_f3->set('outdoor', getOutdoors());
-
-        //Store the user input in the hive (Part of making the code sticky)
-        $this->_f3->set('userIndoor', $userIndoor);
-        $this->_f3->set('userOutdoor', $userOutdoor);
-
-        // Display the Interest page
-        $view = new Template();
-        echo $view->render('views/Interest.html');
     }
 
     function summary()

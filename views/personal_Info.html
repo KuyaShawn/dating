@@ -48,6 +48,11 @@
                         >Female
                     </label>
                 </div>
+                <div class="form-group">
+                    <check if="{{ isset(@errors['gender']) }}">
+                        <span class="err">{{ @errors['gender'] }}</span>
+                    </check>
+                </div>
                 <div class="form-group mt-3">
                     <label class="h6" for="pNum">Phone Number</label>
                     <input type="text" class="form-control" id="pNum" name="pNum" value="{{ @userPhone }}">
@@ -58,7 +63,10 @@
                 <h6>Premium Membership</h6>
                 <div class="form-check form-group">
                     <input type="checkbox" class="form-check-input" name="premium" id="premium">
-                    <label class="form-check-label" for="premium">Sign me up for a Premium Account!</label>
+                    <label class="form-check-label" for="premium">
+                    <check if="{{ @userPremium }}">checked="checked"</check>
+                    Sign me up for a premium account!
+                    </label>
                 </div>
             </div>
             <div class="col-5 mt-4">

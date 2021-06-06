@@ -7,22 +7,23 @@
 <div class="container rounded border mt-4">
     <div class="row column_row pt-4">
         <div class="col">
-            <ul class="list-group">
-                <li class="list-group-item">Name: {{ @SESSION.fName }} {{ @SESSION.lName }}</li>
-                <li class="list-group-item">Gender: {{ @SESSION.gender }}</li>
-                <li class="list-group-item">Age: {{ @SESSION.age }}</li>
-                <li class="list-group-item">Phone: {{ @SESSION.pNum }}</li>
-                <li class="list-group-item">Email: {{ @SESSION.email }}</li>
-                <li class="list-group-item">State: {{ @SESSION.state }}</li>
-                <li class="list-group-item">Seeking: {{ @SESSION.seeking }}</li>
-                <li class="list-group-item">Interest: {{ @SESSION.indoor }}, {{ @SESSION.outdoor }}</li>
-            </ul>
+            <p>Name: {{ @SESSION.user->getFname() }} {{ @SESSION.user->getLname() }}</p>
+            <p>Gender: {{ @SESSION.user->getGender() }}</p>
+            <p>Age: {{ @SESSION.user->getAge() }}</p>
+            <p>Phone: {{ @SESSION.user->getPhone() }}</p>
+            <p>Email: {{ @SESSION.user->getEmail() }}</p>
+            <p>State: {{ @SESSION.user->getState() }}</p>
+            <p>Seeking: {{ @SESSION.user->getSeeking() }}</p>
+            <check if="{{ @SESSION.user instanceof PremiumMember }}">
+                <p>Interests: {{ implode(", ", @SESSION.user->getInDoorInterests()) }},
+                    {{ implode(", ", @SESSION.user->getOutDoorInterests()) }}</p>
+            </check>
         </div>
         <div class="col">
             <div class="container">
                 <img class="rounded profile_img" src="images/profile_icon2.png" alt="Virtual dating">
                 <h4>Biography</h4>
-                <p class="text-center">{{ @SESSION.bio }}.</p>
+                <p> {{ @SESSION.user->getBio() }}</p>
             </div>
         </div>
     </div>
