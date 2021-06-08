@@ -14,9 +14,9 @@ class PremiumMember extends Member
      * @param $_inDoorInterests
      * @param $_outDoorInterests
      */
-    public function __construct($fname="", $lname="", $age=0, $gender="", $phone="",
-                                $email="", $state="", $seeking="", $bio="",
-                                $_inDoorInterests=array(), $_outDoorInterests=array())
+    public function __construct($fname = "", $lname = "", $age = 0, $gender = "", $phone = "",
+                                $email = "", $state = "", $seeking = "", $bio = "",
+                                $_inDoorInterests = array(), $_outDoorInterests = array())
     {
         parent::__construct($fname, $lname, $age, $gender,
             $phone, $email, $state, $seeking, $bio);

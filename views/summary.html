@@ -7,17 +7,20 @@
 <div class="container rounded border mt-4">
     <div class="row column_row pt-4">
         <div class="col">
-            <p>Name: {{ @SESSION.user->getFname() }} {{ @SESSION.user->getLname() }}</p>
-            <p>Gender: {{ @SESSION.user->getGender() }}</p>
-            <p>Age: {{ @SESSION.user->getAge() }}</p>
-            <p>Phone: {{ @SESSION.user->getPhone() }}</p>
-            <p>Email: {{ @SESSION.user->getEmail() }}</p>
-            <p>State: {{ @SESSION.user->getState() }}</p>
-            <p>Seeking: {{ @SESSION.user->getSeeking() }}</p>
-            <check if="{{ @SESSION.user instanceof PremiumMember }}">
-                <p>Interests: {{ implode(", ", @SESSION.user->getInDoorInterests()) }},
-                    {{ implode(", ", @SESSION.user->getOutDoorInterests()) }}</p>
-            </check>
+            <ul class="list-group">
+                <li class="list-group-item">Name: {{ @SESSION.user->getFname() }} {{ @SESSION.user->getLname() }}</li>
+                <li class="list-group-item">Gender: {{ @SESSION.user->getGender() }}</li>
+                <li class="list-group-item">Age: {{ @SESSION.user->getAge() }}</li>
+                <li class="list-group-item">Phone: {{ @SESSION.user->getPhone() }}</li>
+                <li class="list-group-item">Email: {{ @SESSION.user->getEmail() }}</li>
+                <li class="list-group-item">State: {{ @SESSION.user->getState() }}</li>
+                <li class="list-group-item">Seeking: {{ @SESSION.user->getSeeking() }}</li>
+                <check if="{{ @SESSION.user instanceof PremiumMember }}">
+                    <li>Interests: {{ implode(", ", @SESSION.user->getInDoorInterests()) }},
+                        {{ implode(", ", @SESSION.user->getOutDoorInterests()) }}
+                    </li>
+                </check>
+            </ul>
         </div>
         <div class="col">
             <div class="container">

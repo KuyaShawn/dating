@@ -1,4 +1,5 @@
 <?php
+
 class Validation
 {
     // returns true if name is valid
@@ -10,8 +11,7 @@ class Validation
     static function validAge($age): bool
     {
         $age = floatval($age);
-        if (is_nan($age) != 1)
-        {
+        if (is_nan($age) != 1) {
             return ($age >= 18 && $age <= 118);
         }
         return false;

@@ -29,7 +29,7 @@ class Controller
             //var_dump($_POST);
             $_SESSION = array();
 
-            // When user clicks on the premium checkbox
+            // When "user" clicks on the premium checkbox
             $userPremium = isset($_POST['premium']);
             if ($userPremium) {
                 $_SESSION['user'] = new PremiumMember();
@@ -72,11 +72,14 @@ class Controller
                 $this->_f3->set('errors["gender"]', "Please select a valid gender");
             }
 
+            //Get the data
             $this->_f3->set('userFirst', $userFirst);
             $this->_f3->set('userLast', $userLast);
             $this->_f3->set('userAge', $userAge);
             $this->_f3->set('userPhone', $userPhone);
             $this->_f3->set('userGender', $userGender);
+
+            //If there are no errors, redirect to profile route
             if (empty($this->_f3->get('errors'))) {
                 header('location: profile');
             }
@@ -121,6 +124,7 @@ class Controller
             $this->_f3->set('userBio', $userBio);
             $this->_f3->set('userSeeking', $userSeeking);
 
+            //If there are no errors, redirect to profile route
             if (empty($this->_f3->get('errors'))) {
                 header('location: interest');
             }

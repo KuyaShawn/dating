@@ -24,8 +24,8 @@ class Member
      * @param $_seeking
      * @param $_bio
      */
-    public function __construct($fname="", $lname="", $age=0, $gender="", $phone="",
-                                $email="", $state="", $seeking="", $bio="")
+    public function __construct($fname = "", $lname = "", $age = 0, $gender = "", $phone = "",
+                                $email = "", $state = "", $seeking = "", $bio = "")
     {
         $this->_fname = $fname;
         $this->_lname = $lname;
