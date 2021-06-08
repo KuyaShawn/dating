@@ -1,0 +1,40 @@
+<!-- 328/dating/views/summary.html  -->
+
+<!-- Summary Page -->
+<include href="views/header.html"></include>
+<body>
+<include href="views/navbar.html"></include>
+<div class="container rounded border mt-4">
+    <div class="row column_row pt-4">
+        <div class="col">
+            <ul class="list-group">
+                <li class="list-group-item">Name: {{ @SESSION.user->getFname() }} {{ @SESSION.user->getLname() }}</li>
+                <li class="list-group-item">Gender: {{ @SESSION.user->getGender() }}</li>
+                <li class="list-group-item">Age: {{ @SESSION.user->getAge() }}</li>
+                <li class="list-group-item">Phone: {{ @SESSION.user->getPhone() }}</li>
+                <li class="list-group-item">Email: {{ @SESSION.user->getEmail() }}</li>
+                <li class="list-group-item">State: {{ @SESSION.user->getState() }}</li>
+                <li class="list-group-item">Seeking: {{ @SESSION.user->getSeeking() }}</li>
+                <check if="{{ @SESSION.user instanceof PremiumMember }}">
+                    <li>Interests: {{ implode(", ", @SESSION.user->getInDoorInterests()) }},
+                        {{ implode(", ", @SESSION.user->getOutDoorInterests()) }}
+                    </li>
+                </check>
+            </ul>
+        </div>
+
+        <div class="col">
+            <div class="container">
+                <img class="rounded profile_img" src="images/profile_icon2.png" alt="Virtual dating">
+                <h4>Biography</h4>
+                <p> {{ @SESSION.user->getBio() }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="row column_row d-flex justify-content-center">
+        <a class="btn btn-primary rounded" href="">Contact Me!</a>
+    </div>
+</div>
+
+</body>
+</html>
